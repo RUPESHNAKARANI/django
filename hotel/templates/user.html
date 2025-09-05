@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>get data</title>
+</head>
+<body>
+
+<table border="1" cellpadding="10" cellspacing="0">
+    <tr>
+        <td>id</td>
+        <td>Username</td>
+        <td>Email</td>
+        <td>Password</td>
+        <td>Action</td>
+        <td>Action</td>
+        
+    </tr>
+
+{% comment %} for jinja pattern {% endcomment %}
+        {% for i in data %}
+      
+        <tr>
+        <td>{{i.id}}</td>
+        <td>{{i.username}}</td>
+        <td>{{i.email}}</td>
+        <td>{{i.password}}</td>
+        <td><button><a href="/delete/{{i.id}}">Delete</a></button></td>
+        <td><button><a href="/update/{{i.id}}">Update</a></button></td>
+        
+        </tr>
+
+        {% endfor %}
+
+</table>
+<button><a href="/logout/">Logout</a></button>
+
+</body>
+</html>
