@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="login-container">
-        <form class="login-form"  method="POST">
+        <form class="login-form"  method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <h2>update</h2>
             <div class="input-group">
@@ -22,8 +22,19 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required  value={{data.password}}>
             </div>
+
+            <!-- Show current image preview -->
+            {% if data.image %}
+                <p>Current Profile Picture:</p>
+                <img src="{{ data.image.url }}" width="120" height="120"><br>
+            {% endif %}
+
+            <!-- Upload new image -->
             <div class="input-group">
-      
+                <label for="image">Upload New Image</label>
+                <input type="file" id="image" name="image" accept="image/*">
+            </div>
+
             <button type="submit">Register</button>
             <p class="register-link">
                  <a href="/login/">Already have an account? Login</a></p>

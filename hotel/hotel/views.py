@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from service.models import Register
+import os
+from django.conf import settings
 
 def page(request, template,a=None):
     if not request.session.get("username"):
@@ -57,7 +59,8 @@ def register(request):
         email = request.POST["email"]
         password = request.POST["password"]
         confirm_password = request.POST["confirm_password"]
-        a1 = Register(username=username, email=email, password=password)
+        image = request.FILES.get("image")  # ✅ file handling
+        a1 = Register(username=username, email=email, password=password, image=image)
         a1.save()
     
         return redirect("/user/")
@@ -68,8 +71,9 @@ def register(request):
         #     # return render(request, "register.html", {"success": True})
         #     return redirect("/user/")
         # else:
-            # If passwords don't match, you can show an error page or redirect back
-            # return render(request, "register.html", {"password": True})
+        #     # If passwords don't match, you can show an error page or redirect back
+        #     return render(request, "register.html", {"password": True})
+        
        
         # ✅ Print in VS Code terminal
         # print("------ User Registration Data ------")
@@ -77,7 +81,7 @@ def register(request):
         # print("Email:", email)
         # print("Password:", password)
         # print("Confirm Password:", confirm_password)
-        
+
     except:pass
     return render(request, "register.html")            
         
@@ -85,7 +89,12 @@ def register(request):
 def delete(request, id):
     data = Register.objects.get(id=id)
     data.delete()
+    
+    # delete image file from media
+    if data.image and os.path.isfile(data.image.path):
+        os.remove(data.image.path)
     return redirect("/user/")
+
 
 
 def update(request, id):
@@ -95,6 +104,16 @@ def update(request, id):
         data.username = request.POST.get("username")
         data.email = request.POST.get("email")
         data.password = request.POST.get("password")
+        # data.image = request.POST.get("image")
+        
+        # Upload new image
+        if "image" in request.FILES:
+            if data.image:
+                old_image_path = os.path.join(settings.MEDIA_ROOT, str(data.image))
+                if os.path.exists(old_image_path):
+                    os.remove(old_image_path)
+            data.image = request.FILES["image"]
+
         data.save()
         return redirect("/user/")  # redirect after update
 

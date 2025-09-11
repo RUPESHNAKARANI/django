@@ -10,7 +10,7 @@
         {% if success %}
         <P style="color:green;">form submitted successfully</p>
         {% endif  %}
-        <form class="login-form"  method="POST">
+        <form class="login-form"  method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <h2>Register</h2>
             <div class="input-group">
@@ -29,6 +29,19 @@
                 <label for="confirm_password">Confirm Password</label>
                 <input type="password" id="confirm_password" name="confirm_password" required>
             </div>
+
+           <!-- Show current image -->
+           {% if data.image %}
+                <p>Current Profile Pic:</p>
+                <img src="{{ data.image.url }}" width="100" height="100"><br>
+          {% endif %}
+
+          <!-- Upload new image -->
+          <div class="input-group">
+                <label for="image">Upload New Image</label>
+                <input type="file" id="image" name="image">
+          </div>
+
         {% if password %}
         <P style="color:red;">Password does not match</p>
         {% endif  %}

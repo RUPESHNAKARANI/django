@@ -7,3 +7,4 @@ class Register(models.Model):
     password = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    image = models.ImageField(upload_to="profile_images/", null=True, blank=True)  
