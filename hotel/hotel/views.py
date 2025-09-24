@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from service.models import Register
+from service.models import Register,Addroom
+
 import os
 from django.conf import settings
 
@@ -24,8 +25,13 @@ def contact(request):
     return page(request , "contact.html")
 
 
+# def room(request):
+#     return page(request , "room.html")
+
 def room(request):
-    return page(request , "room.html")
+    data = Addroom.objects.all()   # to store data in model so model name required
+    a = {"data":data}
+    return page(request , "room.html",a)
 
 
 def service(request):
@@ -142,3 +148,34 @@ def login(request):
 def logout(request):
     request.session.flush()  # clear all session data
     return redirect("/login/")  # after logout → go to login
+
+def addroom(request):
+    try:
+        roomimage = request.FILES.get("roomimage")  # ✅ file handling
+        rent = request.POST["rent"]
+        roomname = request.POST["roomname"]
+        rating = request.POST["rating"]
+        bed = request.POST["bed"]
+        bath = request.POST["bath"]
+        wifi = request.POST["wifi"]
+        dics = request.POST["dics"]
+        
+        a1 = Addroom(roomimage=roomimage,rent=rent,rating=rating,roomname=roomname,bed=bed,bath=bath,wifi=wifi,dics=dics)
+        a1.save()
+    
+        # return redirect("/user/")
+
+        
+       
+        # ✅ Print in VS Code terminal
+        # print("------ User Registration Data ------")
+        # print("roomimage:", roomimage)
+        # print("rent:", rent)
+        # print("rating:", rating)
+        # print("bed", bed)
+        # print("bath", bath)
+        # print("wifi", wifi)
+        # print("dics", dics)
+
+    except:pass
+    return render(request, "addroom.html") 

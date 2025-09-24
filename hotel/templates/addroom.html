@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add room</title>
+    <link href="/static/css/login.css" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container">
+        {% if success %}
+        <P style="color:green;">form submitted successfully</p>
+        {% endif  %}
+        <form class="login-form"  method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <h2>Add room</h2>
+            <div class="input-group">
+                <label for="roomimage">Room image</label>
+                <input type="file" id="roomimage" name="roomimage" required>
+            </div>
+            <div class="input-group">
+                <label for="rent">rent</label>
+                <input type="number" id="rent" name="rent" min="0" required>
+            </div>
+             <div class="input-group">
+                <label for="roomname">Room name</label>
+                <input type="text" id="roomname" name="roomname" required>
+            </div>
+            <div class="input-group">
+                <label for="rating">rating</label>
+                <input type="number" id="rating" name="rating" min="0" max="5" required>
+            </div>
+            <div class="input-group">
+                <label for="bed">bed</label>
+                <input type="number" id="bed" name="bed" min="0" required>
+            </div>
+            <div class="input-group">
+                <label for="bath">bath</label>
+                <input type="number" id="bath" name="bath" min="0" required>
+            </div>
+            <div class="input-group">
+                <label>Wifi</label>
+                <label><input type="radio" name="wifi" value="yes" checked> YES</label>
+                <label><input type="radio" name="wifi" value="no"> NO</label>
+            </div>
+
+              <div class="input-group">
+                <label for="dics">Description</label>
+                <textarea id="dics" name="dics" placeholder="Enter your room description" rows="15" cols="50"></textarea>
+            </div>
+
+            <button type="submit">Submit</button>
+        
+        </form>
+    </div>
+</body>
+</html>

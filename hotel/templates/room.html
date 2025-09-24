@@ -320,6 +320,52 @@
                             </div>
                         </div>
                     </div>
+
+
+{% for i in data %}
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="room-item shadow rounded overflow-hidden">
+                            <div class="position-relative">
+
+                                        {% if i.roomimage %}
+                                                <img class="img-fluid" src="{{ i.roomimage.url }}" alt="{{ i.roomname }}">
+                                        {% else %}
+                                                <img class="img-fluid" src="/static/img/default-room.jpg" alt="No image available">
+                                        {% endif %}
+                                <small
+                                    class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">${{i.rent}}/Night</small>
+                            </div>
+                            <div class="p-4 mt-2">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h5 class="mb-0">{{i.roomname}}</h5>
+                                    <div class="ps-2">
+                                        {% for star in "12345" %}
+                                            {% if forloop.counter <= i.rating %}
+                                                <small class="fa fa-star text-primary"></small>  {# filled star #}
+                                            {% else %}
+                                                <small class="fa fa-star text-muted"></small>   {# empty star #}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="d-flex mb-3">
+                                    <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>{{i.bed}} Bed
+
+                                        </small>
+                                    <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2"></i>{{i.bath}} Bath
+                                        </small>
+                                    <small><i class="fa fa-wifi text-primary me-2"></i>{{i.Wifi}} Wifi</small>
+                                </div>
+                                <p class="text-body mb-3">{{i.dics}}</p>
+                                <div class="d-flex justify-content-between">
+                                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
+                                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Book Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ {% endfor %}
+
                 </div>
             </div>
         </div>

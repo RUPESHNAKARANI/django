@@ -13,7 +13,7 @@ body {
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 350px; /* Slightly wider for file inputs and textarea */
 }
 
 .login-form h2 {
@@ -34,12 +34,25 @@ body {
 
 .input-group input[type="text"],
 .input-group input[type="password"],
-.input-group input[type="email"] {
+.input-group input[type="email"],
+.input-group input[type="number"],
+.input-group input[type="file"],
+.input-group textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+.input-group textarea {
+    resize: vertical;
+    height: 80px;
+}
+
+.input-group input[type="radio"] {
+    width: auto;
+    margin-right: 5px;
 }
 
 button[type="submit"] {
@@ -57,22 +70,4 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
     background-color: #0056b3;
-}
-
-.forgot-password,
-.register-link {
-    text-align: center;
-    margin-top: 15px;
-    font-size: 14px;
-}
-
-.forgot-password a,
-.register-link a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.forgot-password a:hover,
-.register-link a:hover {
-    text-decoration: underline;
 }
